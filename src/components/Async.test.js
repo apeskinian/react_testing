@@ -5,6 +5,11 @@ describe('<Async> component' ,() => {
 
     test('renders posts if request succeeds', async () => {
         // arrange
+        // mocking the fetch function
+        window.fetch = jest.fn();
+        window.fetch.mockResolvedValueOnce({
+            json: async () => [{ id: 'p1', title: 'first post' }],
+        });
         render(<Async />)
         // assert
         const listItemElements = await screen.findAllByRole('listitem')
